@@ -1,1 +1,109 @@
+Problem 1: Find the duplicate number (Arrays) 
 
+
+class Solution {
+public:
+    int findDuplicate(vector<int>& nums) {
+      int n = nums.size();
+       int l=1,h=n,res=-1;              
+        while(l<=h){
+            int mid = (l+h)/2;
+            
+            if(count(nums,mid)>mid){
+                res = mid;
+                h = mid-1;
+            }else{
+                l=mid+1;
+            }
+        }
+        return res;
+    }
+    
+    int count(vector<int>& v, int cur){
+        int ans=0;
+        for(auto &i:v){
+            if(i<=cur) ans++;
+        }
+        return ans;
+    }
+};
+
+
+Problem 2: Sort Colors (Arrays) 
+
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int c0=0,c1=0,c2=0;
+        for(auto& i:nums){
+            if(i==0) c0++;
+            else if(i==1) c1++;
+            else c2++;
+        }
+        int i=0;
+        for(i=0;i<c0;i++) nums[i]=0;
+        for(;i<(c1+c0);i++) nums[i]=1;
+        for(;i<(c0+c1+c2);i++) nums[i]=2;
+        
+    }
+};
+
+Problem 3 : Valid Paranthesis (Strings)
+
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char> st;
+        
+        for(auto i:s){
+            if(i=='(' || i=='{' || i=='[') st.push(i);
+            else{
+                if(st.empty() || (i!=')' && st.top()=='(') || (i!='}' && st.top()=='{') || (i!=']' && st.top()=='[')) 
+                    return false;
+                
+                st.pop();
+            }
+        }
+        
+        return st.empty();
+    }
+};
+
+
+Problem 4: Print all the duplicates in the input string (strings)
+
+
+class Solution {
+public:
+    void allDuplicates(string s) {
+    
+        unordered_map<char,int> mp;
+        for(auto& i:s){
+            if(i!=' ')
+            mp[i]++;
+        }
+
+        for(auto it=mp.begin();it!=mp.end();it++){
+            if(it->second > 1)
+            cout<<it->first<<" count= "<<it->second<<endl;
+        }
+    }
+};
+
+Problem 5: Integer to Roman conversion (Strings)
+
+class Solution {
+public:
+    string intToRoman(int num) {
+        string res = "";
+        vector<pair<int,string>> v={{1000, "M"},{900, "CM"},{500,"D"},{400,"CD"},{100,"C"},{90,"XC"},{50,"L"},                                              {40,"XL"},{10,"X"},{9,"IX"},{5,"V"},{4,"IV"},{1,"I"}};
+        
+        for(int i=0;num;i++){
+            while(num >= v[i].first){
+                res += v[i].second;
+                num -= v[i].first;
+            }
+        }
+     return res;   
+    }
+};
