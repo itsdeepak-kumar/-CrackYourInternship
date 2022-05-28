@@ -1,1 +1,146 @@
 
+Day 2
+Number of problems done = 6
+
+Problem 1 : Remove the duplicates from sorted array  (arrays)
+
+
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int n=nums.size();
+        int count=0;
+        for(int i=1;i<n;i++){
+           if(nums[i]==nums[i-1]) count++;
+           else nums[i-count]=nums[i];
+        }
+        return nums.size()-count;
+    }
+};
+    
+
+Problem 2 : Set Matrix Zeroes  (arrays)
+
+
+class Solution {
+public:
+    void setZeroes(vector<vector<int>>& matrix) {
+        set<int> r,c;
+        for(int i=0;i<matrix.size();i++){
+            for(int j=0;j<matrix[i].size();j++){
+                if(matrix[i][j]==0){
+                   r.insert(i);
+                   c.insert(j); 
+                }
+            }
+        }
+        
+        for(int i=0;i<matrix.size();i++){
+            for(int j=0;j<matrix[i].size();j++){
+               if(r.count(i) || c.count(j)) matrix[i][j]=0;
+            }
+        }
+        
+    }
+};
+
+
+Problem 3 : Find all duplicates in an array  (arrays)
+
+class Solution {
+public:
+    vector<int> findDuplicates(vector<int>& nums) {
+        vector<int> res;
+        map<int,int> mp;
+        for(auto i:nums){
+            mp[i]++;
+        }
+        
+        for(auto it=mp.begin();it!=mp.end();it++){
+            if(it->second == 2)
+                res.push_back(it->first);
+        }
+        
+        return res;
+    }
+};
+
+
+Problem 4 : Implement strstr() function   (strings)
+
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+         int n = haystack.size(), m = needle.size();
+         int i=0,j=0,ans=-1;
+         
+        if(m>n) return -1;
+        if(needle.empty()) return 0;
+        
+        while(i<n && j<m){
+            if(haystack[i]==needle[0]) {
+                if(haystack.substr(i,m) == needle)
+                {
+                    ans = i;
+                    break;
+                }else i++;
+            }else i++;
+        }
+        
+       return ans;
+    }
+};
+
+
+
+Problem 5 : Longest Common Prefix   (strings)
+
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        int n = strs.size();
+        if(n==0) return "";
+        
+        string ans="";
+        sort(strs.begin(),strs.end());
+        
+        string a = strs[0], b=strs[n-1];
+        
+        for(int i=0;i<a.size();i++){
+            if(a[i]==b[i])
+                ans += a[i];
+            else
+                break;
+        }
+        
+        return ans;
+    }
+};
+
+
+Problem 6 : Generate Paranthesis    (strings)
+
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> res;
+        addParenthesis(res, "", n, 0);
+        return res;
+    }
+    
+    void addParenthesis(vector<string>& v, string str, int n, int m){
+        if(n==0 && m==0){
+            v.push_back(str);
+            return;
+        }
+        
+        if(n>0){
+            addParenthesis(v, str+"(", n-1, m+1);
+        }
+         
+        if(m>0){
+            addParenthesis(v, str+")", n, m-1);
+        }
+    }
+    
+};
