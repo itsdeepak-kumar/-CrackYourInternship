@@ -140,10 +140,5 @@ class Solution
     }
 };
 
-// Problem 5 : Rabin-Karp Algorithm for Pattern Searching
-
-
-
-// PRoblem 6 : Word Wrap 
 
 
